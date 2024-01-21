@@ -2,6 +2,12 @@
 
 ### Resumen
 
+- No debemos tener todo el archivo en memoria ya que se considera que el mismo es bastante grande. Se usan BufferReaders para leerlo de manera eficiente.
+- Ya que el BufferReader se "mueve" en el archivo en cada lectura, se deben tener varios para evitar que un SHA pierda su línea a causa de la lectura de otro SHA. Se tienen tantos buffers como SHAs.
+- El monitor (ReadManager) maneja el acceso al archivo y retorna la línea correspondiente a cada SHA.
+
+### Explicacion
+
 Para el archivo generado por OK se tienen varias líneas que deben ser procesadas por distintos SHAs. Para evitar conflictos entre los threads y las líneas que deben de leer, se generara un BufferReader para cada sha en el monitor. Los sha corren de forma concurrente y le piden al monitor la siguiente línea que deben obtener.
 
 El monitor busca la siguiente línea con el BufferReader del respectivo SHA y si encuentra una línea que le corresponda se la retornara. Si no le retornara el EOF y el SHA terminara su ejecución.
