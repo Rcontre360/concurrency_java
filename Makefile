@@ -5,7 +5,7 @@ JAVAC = javac
 JAVA = java
 SRC = .
 BUILD = build
-MAINCLASS = YourMainClass
+MAINCLASS = main
 
 # Compile Java files into the build directory
 build: $(SRC)/*.java
@@ -14,7 +14,7 @@ build: $(SRC)/*.java
 
 # Run the application
 run: build
-	$(JAVA) -cp $(BUILD) $(MAINCLASS)
+	$(JAVA) -cp $(BUILD) $(MAINCLASS) "./OK_File.txt" 3
 
 # Clean, build and run the app
 all: clean build run

@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LineProcessor {
-    public static int getNum(String line) throws Exception {
+    public static int getNum(String line){
         Pattern pattern = Pattern.compile("\\[(\\d+)]");
         Matcher matcher = pattern.matcher(line);
 
@@ -12,16 +12,16 @@ public class LineProcessor {
             int num = Integer.parseInt(matcher.group(1));
             return num;
         } else {
-            throw new Exception("No number id on line" + line);
+            return -1;
         }
     }
 
     public static String getLine(String input) throws Exception {
-        Pattern pattern = Pattern.compile("\\[n\\] (.+)");
+        Pattern pattern = Pattern.compile("\\[(\\d+)\\] (.+)");
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.find()) {
-            return matcher.group(1);
+            return matcher.group(2);
         } else {
             throw new Exception("Wrong line format");
         }

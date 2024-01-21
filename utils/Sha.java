@@ -17,6 +17,7 @@ public class Sha implements Runnable{
 
         try {
             Thread.sleep((int)Math.floor(sleepTime));
+            System.out.println("Line " + line + " processed by SHA: " + id);
         } catch (InterruptedException e) {
             System.out.println("Thread was interrupted");
         }
@@ -26,7 +27,7 @@ public class Sha implements Runnable{
         boolean shouldRead = true;
         while (shouldRead){
             String myLine = manager.readLineId(id);
-            if (myLine == ReadManager.EOF){
+            if (myLine.equals(ReadManager.EOF)){
                 shouldRead = false;
             } else {
                 process(myLine);

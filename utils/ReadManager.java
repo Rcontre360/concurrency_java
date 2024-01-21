@@ -11,10 +11,9 @@ public class ReadManager {
 
     public ReadManager(String filePath, int ids){
         try{
-            FileReader file = new FileReader(filePath);
             readers = new BufferedReader[ids];
             for (int i=0;i < ids; i++){
-                readers[i] = new BufferedReader(file);
+                readers[i] = new BufferedReader(new FileReader(filePath));
             }
         }catch (IOException e) {
             e.printStackTrace();
@@ -25,12 +24,11 @@ public class ReadManager {
         BufferedReader curReader = readers[shaId];
         String line;
         try{
-            while ((line = curReader.readLine()) != EOF){
+            while (!(line = curReader.readLine()).equals(EOF)){
                 if (LineProcessor.getNum(line) == shaId) break;
-                curReader.readLine();
             }
 
-            if (line != EOF){
+            if (!line.equals(EOF)){
                 return LineProcessor.getLine(line);
             }
         } catch (Exception e) {
