@@ -7,7 +7,7 @@ SRC = .
 BUILD = build
 MAINCLASS = main
 GENERATOR_CLASS = ok
-GENERATOR_LINES = 10
+GENERATOR_LINES = 50
 GENERATOR_N = 8
 
 # Compile Java files into the build directory
