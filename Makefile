@@ -6,6 +6,9 @@ JAVA = java
 SRC = .
 BUILD = build
 MAINCLASS = main
+GENERATOR_CLASS = ok
+GENERATOR_LINES = 10
+GENERATOR_N = 8
 
 # Compile Java files into the build directory
 build: $(SRC)/*.java
@@ -14,7 +17,7 @@ build: $(SRC)/*.java
 
 # Run the application
 run: build
-	$(JAVA) -cp $(BUILD) $(MAINCLASS) "./OK_File.txt" 3
+	$(JAVA) -cp $(BUILD) $(MAINCLASS) "./OK_File.txt" $(GENERATOR_N)
 
 # Clean, build and run the app
 all: clean build run
@@ -22,6 +25,9 @@ all: clean build run
 # Clean the build directory
 clean:
 	rm -rf $(BUILD)
+
+generate: build
+	$(JAVA) -cp $(BUILD) $(GENERATOR_CLASS) $(GENERATOR_LINES) $(GENERATOR_N)
 
 .PHONY: build run clean all
 
