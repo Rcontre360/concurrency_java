@@ -4,6 +4,14 @@ public class Cmd {
     private String filePath;
     private int shaIds;
 
+    public Cmd(String[] args) {
+        try {
+            processArgs(args);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public String getFilePath() {
         return filePath;
     }

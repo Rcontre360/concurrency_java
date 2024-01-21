@@ -2,11 +2,12 @@ package utils;
 
 import java.util.List;
 
-
 public class Sha implements Runnable{
+    private ReadManager manager;
     private int id;
 
-    public Sha(int _id){
+    public Sha(ReadManager _manager,int _id){
+        manager = _manager;
         id = _id;
     }
 
@@ -22,6 +23,15 @@ public class Sha implements Runnable{
     }
 
     public void run(){
+        boolean shouldRead = true;
+        while (shouldRead){
+            String myLine = manager.readLineId(id);
+            if (myLine == ReadManager.EOF){
+                shouldRead = false;
+            } else {
+                process(myLine);
+            }
+        }
     }
 }
 

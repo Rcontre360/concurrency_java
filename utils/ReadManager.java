@@ -24,16 +24,20 @@ public class ReadManager {
     public synchronized String readLineId(int shaId){ //dont think synchronized should be used
         BufferedReader curReader = readers[shaId];
         String line;
-        while ((line = curReader.readLine()) != EOF){
-            if (LineProcessor.getNum(line) != shaId) break;
-            curReader.readLine();
+        try{
+            while ((line = curReader.readLine()) != EOF){
+                if (LineProcessor.getNum(line) == shaId) break;
+                curReader.readLine();
+            }
+
+            if (line != EOF){
+                return LineProcessor.getLine(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        if (line != EOF){
-            return LineProcessor.getLine(line);
-        }else{
-            return EOF;
-        }
+
+        return EOF;
     }
 
 }
