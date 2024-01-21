@@ -23,3 +23,47 @@ Se creyó una clase para generar los archivos OK, aunque esto no es parte de la 
 - El archivo se lee N veces, siendo N el número de SHAs creados.
 - La cantidad de memoria usada durante el proceso para leer el archivo es a lo sumo N \* L, siendo N la cantidad de SHAs y L la cantidad de bytes por línea.
 - Se piensa que al remover el "synchronized" de la función de lectura del ReadManager el proceso correrá más rápido. Esto es así, ya que al ser sincronizado cada hilo debe esperar al el pedido actual en el ReadManager. Al quitarle esto, varios hilos accederán al archivo al mismo tiempo y no existe peligro de corrupción porque la operación es de solo lectura y el ReadManager solo envía la línea correcta a cada SHA.
+
+### Como usar el sistema
+
+Se ha creado un Makefile para facilitar la prueba del sistema.
+
+- Generar el OK_File.txt: Para generar un archivo OK y a sí mismo poder modificar sus características (cantidad de líneas, número de ids por línea) se deben modificar las siguientes variables en el Makefile.
+
+  - GENERATOR_LINES: cantidad de lineas generadas, valor actual de 50
+  - GENERATOR_N: cantidad de Ids posibles. También configura la cantidad de SHAs generados en el comando de inicialización del sistema de procesamiento.
+
+Ejemplos de como correr el comando de generacion:
+
+```
+make generate //genera el archivo con la configuracion actual
+```
+
+```
+make generate GENERATOR_LINES=10 GENERATOR_N=3//genera el archivo con una nueva configuracion
+```
+
+- Procesar el archivo OK_File.txt: Para esto es tan sencillo como correr el comando siguiente:
+
+```
+make all
+```
+
+Esto limpiará el build anterior (si no existe no importa), compilará el sistema y lo correrá. Debería recibir un output similar al siguiente:
+
+```
+rm -rf build
+mkdir -p build
+javac -d build ./*.java
+java -cp build main "./OK_File.txt" 8
+Line YofRITbqNJeGgWEH5FWmzwR2i processed by SHA: 1
+Line 5xJ0MhPOf5v2Xvnz7n1BGPPXd processed by SHA: 0
+Line fINumGli6MatRm50dZ1afV3mX processed by SHA: 2
+Line sYpakUs8ACTa5BKnVovfbXYaM processed by SHA: 1
+Line jaVGTVaFjLGAU8RAx3pnDsVAv processed by SHA: 2
+Line 3V8Zbylqbpe6paVcy745YxXlI processed by SHA: 0
+Line jTwsDGUC9A9xDD5iui2TjSINq processed by SHA: 1
+Line qfPsYTnrwCX5KRShWr9yQeq3c processed by SHA: 2
+Line tkNc5oYy5YXsUSMzRN7mcaJPy processed by SHA: 0
+Line glQ0fa4kKJUgytyLDRVIhmvHT processed by SHA: 2
+```
