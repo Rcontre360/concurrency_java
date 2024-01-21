@@ -1,21 +1,21 @@
-import java.io.IOException;
-import java.util.List;
-
-import utils.Reader;
+import utils.*;
 
 public class main {
     public static void main(String[] args) {
-        String filePath = "./OK_File.txt";
+        Cmd cmd = new Cmd();
+        Reader reader = new Reader(cmd.getFilePath());
+        Sha[] shaList = new Sha[cmd.getShaIds()];
+        String line;
+        
+        while ((line = reader.readLine()) != "eot-ok"){
+            try {
+                int shaId = NumExtractor.getNum(line); 
 
-        try {
-            List<String> lines = Reader.read(filePath);
-
-            // Process the lines from the file
-            for (String line : lines) {
-                System.out.println(line);
+                //shaList[shaId]
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
             }
-        } catch (IOException e) {
-            System.err.println("An error occurred while reading the file: " + e.getMessage());
         }
     }
 }
