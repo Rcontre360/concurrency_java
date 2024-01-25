@@ -16,7 +16,8 @@ public class Sha implements Runnable{
         double sleepTime = alpha * id + 1;
 
         try {
-            Thread.sleep((int)Math.floor(sleepTime));
+            int time = (int)sleepTime*1000;
+            Thread.sleep(time);
             System.out.println("Line " + line + " processed by SHA: " + id);
         } catch (InterruptedException e) {
             System.out.println("Thread was interrupted");

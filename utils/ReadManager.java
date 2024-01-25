@@ -20,7 +20,7 @@ public class ReadManager {
         }
     }
 
-    public synchronized String readLineId(int shaId){ //dont think synchronized should be used
+    public String readLineId(int shaId){ //dont think synchronized should be used
         BufferedReader curReader = readers[shaId];
         String line;
         try{
